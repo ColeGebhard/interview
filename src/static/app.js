@@ -5,21 +5,14 @@ const BASE_URL = "http://localhost:3000";
 
 //setupfunction that starts the process of javascript
 //Calls all posts, and applys it to functions in need.
-//Loading feature looks for when productContainer changes form loading... to products
-//When loading is done, data is pushed in renderProductHTML, and styles applied.
+//applys styles to the data after Loading... has been cleared.
 async function setup() {
 	try {
-		const productContainer = document.querySelector('#productContainer');
 
-		const isLoading = productContainer.innerHTML.trim() === '';
+		const data = await getAllPosts();
+		renderProductHTML(data);
+		applyStylesAfterLoad();
 
-		if (!isLoading) {
-			const data = await getAllPosts();
-			renderProductHTML(data);
-			applyStylesAfterLoad();
-		} else {
-			console.log("Still loading")
-		}
 
 	} catch (error) {
 		console.error(error.message);
@@ -52,7 +45,7 @@ async function renderProductHTML(data) {
 	productContainer.innerHTML = '';
 
 	//Sort objects from low to high
-	data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+	data.sort((a, b) => a.price - b.price);
 
 	//Formatting number to USD
 	function formatNumberToUSD(number) {
