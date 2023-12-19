@@ -21,13 +21,13 @@
   </header>
 
   <main>
-    <input type="text" id="searchBar" placeholder="Search products...">
+    <input type="text" id="searchBar" oninput="searchProducts()" placeholder="Search products...">
 
     <h2>
       Products
     </h2>
 
-    <div id="productContainer"></div>
+    <div id="productContainer">Loading...</div>
 
   </main>
   <script src="/app.js"></script>

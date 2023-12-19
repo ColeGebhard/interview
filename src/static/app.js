@@ -5,9 +5,18 @@ const BASE_URL = "http://localhost:3000";
 
 async function setup() {
 	try {
-		const data = await getAllPosts();
-		renderProductHTML(data);
+		const productContainer = document.querySelector('#productContainer');
 
+        const isLoading = productContainer.innerHTML.trim() === '';
+
+		if(!isLoading) {
+			const data = await getAllPosts();
+			renderProductHTML(data);
+			applyStylesAfterLoad();
+		} else {
+			console.log("Still loading")
+		}
+	
 	} catch (error) {
 		console.error(error.message);
 	}
@@ -41,24 +50,55 @@ async function renderProductHTML(data) {
 	//Sort objects from low to high
 	data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
 
+	//Formatting number to USD
+	function formatNumberToUSD(number) {
+		let numberString = number.toString();
+
+		let formattedNumber = '$' + numberString.slice(0, -2) + '.' + numberString.slice(-2);
+
+		return formattedNumber
+	}
+
+
 	for (const product of data) {
 		const productCard = document.createElement('div');
 		productCard.classList.add('product');
 
 		const productImage = document.createElement('img');
-		productImage.setAttribute('src', product.images[0].src )
+		productImage.setAttribute('src', product.images[0].src)
 
 		const productName = document.createElement('h2');
 		productName.textContent = product.title;
 
 		const productPrice = document.createElement('h5');
-		productPrice.textContent = product.price;
-	
+		const price = formatNumberToUSD(product.price)
+		productPrice.textContent = price;
+
 		productCard.appendChild(productImage)
-        productCard.appendChild(productName);
+		productCard.appendChild(productName);
 		productCard.appendChild(productPrice);
 
 
 		productContainer.appendChild(productCard);
 	}
+}
+
+function searchProducts() {
+	const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+	const products = document.querySelectorAll('.product');
+
+	products.forEach((product) => {
+		const productName = product.querySelector('h2').textContent.toLowerCase();
+
+		if (productName.includes(searchTerm)) {
+			product.style.display = 'block';
+		} else {
+			product.style.display = 'none'
+		}
+	})
+}
+
+function applyStylesAfterLoad() {
+	const productContainer = document.querySelector('#productContainer');
+	productContainer.classList.add('content-loaded'); // Add a class to apply styles
 }

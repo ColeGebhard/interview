@@ -1,11 +1,12 @@
 /*Disable horizontal scroll*/
-html, body {
+html,
+body {
     max-width: 100%;
     overflow-x: hidden;
 }
 
 /* Set color and font for every item. Also set margins */
-body{
+body {
     font-family: 'Mina', sans-serif;
     color: #000000;
     margin: 0;
@@ -28,36 +29,34 @@ header {
     padding: .5em 1.3em;
     background-color: #4eb6ff;
 
-    h1{
+    h1 {
         margin: 0;
         font-size: 1.4em;
     }
-    
-    #cartIcon{
+
+    #cartIcon {
         width: 2.3em;
     }
 }
 
 /* 
 Set main body to be a collumn, centered for ability to shift elements
-left or right.
-
-
+left or right
 */
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin:0 .5em;
+    margin: 0 .5em;
 
-    #searchBar{
+    #searchBar {
         width: 100%;
         margin: 1.5em;
         height: 3em;
         font-family: 'Mina', sans-serif;
     }
-    
-    h2{
+
+    h2 {
         width: 100%;
         box-sizing: border-box;
         margin: 0;
@@ -66,7 +65,69 @@ main {
     }
 }
 
-#productContainer{
+/*
+Product container for holding the javascript elements.
+Utilize flex for making rows match requirments.
+Aspect ratio may cause a small stretch in image, but matches UI mockup
+*/
+#productContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: .5em 2em;
+    column-gap: 2em;
+    width: 100%;
+
+
+    .product {
+        flex-basis: 40%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+
+        img {
+            width: 100%;
+            aspect-ratio: 1/1;
+        }
+
+
+        h2 {
+            font-size: 1.3em;
+        }
+
+        h5 {
+            margin-top: .3em;
+            font-size: 1em;
+        }
+    }
+}
+
+/* Styles for devices 430px and up */
+@media screen and (min-width: 430px) {
+
+    #productContainer {
+        column-gap: 2.3em;
+        max-width: 1000px;
+
+        .product {
+            flex-basis: 25%;
+        }
+    }
+}
+
+#productContainer.content-loaded {
+    animation: transitionIn 0.75s;
+}
+
+@keyframes transitionIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
