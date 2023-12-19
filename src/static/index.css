@@ -1,12 +1,24 @@
+/*Disable horizontal scroll*/
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 /* Set color and font for every item. Also set margins */
 body{
     font-family: 'Mina', sans-serif;
     color: #000000;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
-/* Set color and font for every item */
+/* 
+Displayed header as flex for keeping space between
+
+Set color, margins, and size to match mockup for mobile first
+layout
+*/
 header {
     display: flex;
     flex-direction: row;
@@ -26,3 +38,35 @@ header {
     }
 }
 
+/* 
+Set main body to be a collumn, centered for ability to shift elements
+left or right.
+
+
+*/
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:0 .5em;
+
+    #searchBar{
+        width: 100%;
+        margin: 1.5em;
+        height: 3em;
+        font-family: 'Mina', sans-serif;
+    }
+    
+    h2{
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        display: inline-block;
+        font-weight: 600;
+    }
+}
+
+#productContainer{
+    display: flex;
+    flex-direction: row;
+}
