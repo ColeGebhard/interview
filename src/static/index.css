@@ -29,13 +29,29 @@ header {
     padding: .5em 1.3em;
     background-color: #4eb6ff;
 
+
+    /*Added some hover features for user input*/
     h1 {
         margin: 0;
-        font-size: 1.4em;
+        font-size: 1.6em;
+        border-top: transparent dashed 1px;
+        border-bottom: transparent dashed 1px;
+    }
+
+    h1:hover {
+        border-bottom-color: #000000;
+        cursor: pointer;
     }
 
     #cartIcon {
         width: 2.3em;
+        border-top: transparent dashed 1px;
+        border-bottom: transparent dashed 1px;
+    }
+
+    #cartIcon:hover {
+        border-bottom-color: #000000;
+        cursor: pointer;
     }
 }
 
@@ -85,6 +101,7 @@ Aspect ratio may cause a small stretch in image, but matches UI mockup
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
+        border-top: transparent dashed 2px;
 
         img {
             width: 100%;
@@ -101,9 +118,18 @@ Aspect ratio may cause a small stretch in image, but matches UI mockup
             font-size: 1em;
         }
     }
+
+    .product:hover {
+        cursor: pointer;
+        border-color: #000000;
+    }
 }
 
-/* Styles for devices 430px and up */
+/* 
+Styles for devices 430px and up
+Set flex-basis to fit 3 per row now, enlarged gap and 
+set max content width for full screens
+ */
 @media screen and (min-width: 430px) {
 
     #productContainer {
@@ -116,10 +142,17 @@ Aspect ratio may cause a small stretch in image, but matches UI mockup
     }
 }
 
+/*
+Using the new classList "content-loaded" able to only apply transition
+to the products being called, not the loading... part
+*/
 #productContainer.content-loaded {
     animation: transitionIn 0.75s;
 }
 
+/*
+A past keyframe I have found success with
+*/
 @keyframes transitionIn {
     from {
         opacity: 0;
